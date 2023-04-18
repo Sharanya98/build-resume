@@ -7,7 +7,7 @@
 
 
                     <v-col cols="8" sm="8">
-                        <v-sheet height="100vh" width="50vw" rounded="lg">
+                        <v-sheet height="100vh" width="45vw" rounded="lg">
                             <v-form v-model="skill.valid">
                                 <v-container>
                                     <v-row class="mb-n10">
@@ -15,7 +15,7 @@
                                         <v-col cols="6" md="6">
                                             <v-label class="label pb-2 font-weight-bold">Programming Language</v-label>
                                             <v-combobox v-model="programming_lanuage" :items="itemslang" multiple chips
-                                                variant="outlined" ></v-combobox>
+                                                variant="outlined" hint="Max 8"></v-combobox>
                                         </v-col>
                                         <v-col cols="6" md="6">
                                             <v-label class="label pb-2 font-weight-bold">Health status</v-label>
@@ -33,7 +33,7 @@
                                         <v-col cols="6" md="4">
                                             <v-label class="label pb-2 font-weight-bold">Skills/Hobbies</v-label>
                                             <v-combobox v-model="special_skills_and_hobbies.skillName" :items="skillitems"
-                                                clearable chips variant="outlined"></v-combobox>
+                                                clearable chips variant="outlined" hint="Max 4"></v-combobox>
                                         </v-col>
                                         <v-col cols="4" md="4">
                                             <v-label class="label pb-2 font-weight-bold">Years</v-label>
@@ -55,7 +55,8 @@
                                         <v-col cols="6" md="4">
                                             <v-label class="label pb-2 font-weight-bold">Extra Curricular</v-label>
                                             <v-combobox class="" v-model="extra_curricular_activities.activityName"
-                                                clearable :items="skillitems" chips variant="outlined"></v-combobox>
+                                                clearable :items="skillitems" chips variant="outlined"
+                                                hint="Max 4"></v-combobox>
                                         </v-col>
                                         <v-col cols="4" md="4">
                                             <v-label class="label pb-2 font-weight-bold">Years</v-label>
@@ -74,7 +75,7 @@
                                         <v-col cols="6" md="4">
                                             <v-label class="label pb-2 font-weight-bold">Sports</v-label>
                                             <v-combobox class="" v-model="sports.sportName" :items="sportsitems" chips
-                                                clearable variant="outlined"></v-combobox>
+                                                clearable variant="outlined" hint="Max 4"></v-combobox>
                                         </v-col>
                                         <v-col cols="4" md="4">
                                             <v-label class="label pb-2 font-weight-bold">Years</v-label>
@@ -96,7 +97,9 @@
                                         <v-col cols="4" md="4">
                                             <v-label class="label pb-2 font-weight-bold">Certification</v-label>
                                             <v-combobox v-model="licenses_certification.licenseName" clearable
-                                                :items="licenceitems" chips variant="outlined"></v-combobox>
+                                                :items="licenceitems"  hide-selected :hide-no-data="false"  chips variant="outlined" label="Ex JLPT N3"
+                                                hint="Max 8">
+                                               </v-combobox>
                                         </v-col>
                                         <v-col cols="3" md="3">
                                             <v-label class="label pb-2 font-weight-bold">Start Year</v-label>
@@ -338,6 +341,13 @@ export default {
         },
 
     },
+    watch: {
+        CertificateData(val) {
+            if (val.length > 2) {
+                this.$nextTick(() => this.licenses_certification.pop())
+            }
+        }
+    },
     methods: {
         ...mapProfileActions({
             submit: SUBMIT,
@@ -383,7 +393,7 @@ export default {
             console.log("certificate field", this.licenses_certification)
             this.$store.commit('profile/certificate/addcertificate', this.licenses_certification);
         },
-       
+
 
         deleteSkill(index) {
             this.special_skills_and_hobbies.splice(index, 1)

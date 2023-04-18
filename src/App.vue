@@ -7,7 +7,7 @@
     <v-responsive class="d-flex align-center ">
 
 
-      <div class=" text-h3 font-weight-bold mb-n1 text-center">Oyester Resume Builder</div>
+      <div class=" text-h3 font-weight-bold mb-n1 text-center">Oyster Resume Builder</div>
 
       
 
